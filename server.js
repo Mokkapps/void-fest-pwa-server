@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const createError = require('http-errors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const path = require('path');
 
 const serviceAccount = require('./admin-firebase-sdk.json');
 const webpushTopicsRouter = require('./routes/webpushTopics');
@@ -42,6 +43,12 @@ app.use(
 );
 app.use(logger('dev'));
 app.use(cookieParser());
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
 // Initialize Firebase app
 admin.initializeApp({

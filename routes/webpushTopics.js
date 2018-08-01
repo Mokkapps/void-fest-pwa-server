@@ -2,10 +2,11 @@ const admin = require('firebase-admin');
 const express = require('express');
 const router = express.Router();
 
+// Subscribes registration tokens to the topic
 router.post('/:name/subscribe', (req, res) => {
   const registrationToken = req.body.token;
   const topicName = req.params.name;
-  // Subscribe the devices corresponding to the registration tokens to the topic.
+
   admin
     .messaging()
     .subscribeToTopic(registrationToken, topicName)
@@ -34,11 +35,10 @@ router.post('/:name/subscribe', (req, res) => {
     });
 });
 
+// Unsubscribe registration tokens from the topic
 router.post('/:name/unsubscribe', (req, res) => {
   const registrationToken = req.body.token;
   const topicName = req.params.name;
-  // Unsubscribe the devices corresponding to the registration tokens from
-  // the topic.
   admin
     .messaging()
     .unsubscribeFromTopic(registrationToken, topicName)
@@ -69,6 +69,7 @@ router.post('/:name/unsubscribe', (req, res) => {
     });
 });
 
+// Send a message to devices subscribed to the provided topic.
 router.post('/:name/send', (req, res) => {
   const topicName = req.params.name;
   const messageData = req.body.data;
@@ -78,7 +79,6 @@ router.post('/:name/send', (req, res) => {
   };
   console.log('message to send', message);
 
-  // Send a message to devices subscribed to the provided topic.
   admin
     .messaging()
     .send(message)
