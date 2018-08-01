@@ -1,93 +1,84 @@
+const admin = require('firebase-admin');
 const express = require('express');
-const admin = require("firebase-admin");
 const bodyParser = require('body-parser');
+const http = require('http');
+const helmet = require('helmet');
+const createError = require('http-errors');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+
+const serviceAccount = require('./admin-firebase-sdk.json');
+const webpushTopicsRouter = require('./routes/webpushTopics');
+const indexRouter = require('./routes/index');
+
 const app = express();
 
-const HEROKU_APP_NAME = 'void-fest-pwa';
-
-// This file contains sensitive information, including the service account's private encryption key. 
-// Therefore it is not stored in a public repository.
-const serviceAccount = require("./void-fest-pwa-firebase-adminsdk-hu14s-f555365da9.json");
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-app.use(express.static('public'));
-
+const env = app.get('env');
+const isDevelopment = env === 'development';
 const port = process.env.PORT || 5000;
+
+const HEROKU_APP_NAME = 'void-fest-pwa';
+const MONITORING_URL = 'https://nosnch.in/3678d53b62 ';
+
+console.log('NODE_ENV', env);
+
+if (isDevelopment) {
+  // Use local .env for development mode
+  require('dotenv').config();
+}
+
+// Insert private key via environment variable
+serviceAccount.private_key_id = process.env.PRIVATE_KEY_ID;
+serviceAccount.private_key = isDevelopment
+  ? process.env.PRIVATE_KEY
+  : JSON.parse(process.env.PRIVATE_KEY);
+
+app.use(helmet());
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
+app.use(logger('dev'));
+app.use(cookieParser());
 
 // Initialize Firebase app
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://void-fest-pwa.firebaseio.com"
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: 'https://void-fest-pwa.firebaseio.com'
 });
 
-app.get('/', (req, res) => res.send('Void Fest PWA backend is alive!'));
+// Routes
+app.use('/', indexRouter);
+app.use('/api/webpush/topic', webpushTopicsRouter);
 
-app.post('/api/webpush/topic/:name/subscribe', (req, res) => {
-    const registrationToken = req.body.token;
-    const topicName = req.params.name;
-    // Subscribe the devices corresponding to the registration tokens to the topic.
-    admin.messaging().subscribeToTopic(registrationToken, topicName)
-        .then(function (response) {
-            // See the MessagingTopicManagementResponse reference documentation
-            // for the contents of response.
-            console.log(`Successfully subscribed to topic "${topicName}" :`, response);
-            res.status(200).send(`Successfully subscribed to topic "${topicName}": ${JSON.stringify(response)}`);
-        })
-        .catch(function (error) {
-            console.error(`Error subscribing to topic "${topicName}":`, error);
-            res.status(400).send(`Error subscribing to topic "${topicName}": ${JSON.stringify(error)}`);
-        });
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
 });
 
-app.post('/api/webpush/topic/:name/unsubscribe', (req, res) => {
-    const registrationToken = req.body.token;
-    const topicName = req.params.name;
-    // Unsubscribe the devices corresponding to the registration tokens from
-    // the topic.
-    admin.messaging().unsubscribeFromTopic(registrationToken, topicName)
-        .then(function (response) {
-            // See the MessagingTopicManagementResponse reference documentation
-            // for the contents of response.
-            console.log(`Successfully unsubscribed from topic "${topicName}":`, response);
-            res.status(200).send(`Successfully unsubscribed from topic "${topicName}": ${JSON.stringify(response)}`);
-        })
-        .catch(function (error) {
-            console.error(`Error unsubscribing from topic "${topicName}":`, error);
-            res.status(400).send(`Error unsubscribing from topic "${topicName}": ${JSON.stringify(error)}`);
-        });
-});
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-app.post('/api/webpush/topic/:name/send', (req, res) => {
-    const topicName = req.params.name;
-    const messageData = req.body.data;
-    const message = {
-        data: messageData,
-        topic: topicName
-    };
-    console.log('message to send', message);
-
-    // Send a message to devices subscribed to the provided topic.
-    admin.messaging().send(message)
-        .then((response) => {
-            // Response is a message ID string.
-            console.log(`Successfully sent message to topic "${topicName}":`, response);
-            res.status(200).send(`Successfully sent message: ${JSON.stringify(response)}`);
-        })
-        .catch((error) => {
-            console.error('Error sending message:', error);
-            res.status(400).send(`Error sending message to topic "${topicName}": ${JSON.stringify(error)}`);
-        });
-
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 // Keep free Heroku web dyno alive
 setInterval(() => {
-    http.get(`http://${HEROKU_APP_NAME}.herokuapp.com`);
+  http.get(`http://${HEROKU_APP_NAME}.herokuapp.com`);
 }, 5 * 60 * 1000); // every 5 minutes
 
+// Monitoring
+setInterval(() => {
+  http.get(MONITORING_URL);
+}, 1800 * 1000); // every 30 minutes
+
 app.listen(port, () => {
-    console.log(`Listening on port ${port} ...`);
+  console.log(`🚀 Server started on port ${port} ...`);
 });
