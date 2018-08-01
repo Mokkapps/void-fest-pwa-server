@@ -18,7 +18,7 @@ const isDevelopment = env === 'development';
 const port = process.env.PORT || 5000;
 
 const HEROKU_APP_NAME = 'void-fest-pwa';
-const MONITORING_URL = 'https://nosnch.in/3678d53b62 ';
+const MONITORING_URL = 'http://nosnch.in/3678d53b62?m=just+checking+in';
 
 console.log('NODE_ENV', env);
 
