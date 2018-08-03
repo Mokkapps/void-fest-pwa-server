@@ -3,47 +3,68 @@ const moment = require('moment-timezone');
 const { interval } = require('rxjs');
 const { map } = require('rxjs/operators');
 
+const REMIND_MINUTES_BEFORE = 15;
+const TIMEZONE = 'Europe/Berlin';
+
+function areSame(m1, m2) {
+  return (
+    m1.date() === m2.date() &&
+    m1.month() === m2.month() &&
+    m1.year() === m2.year() &&
+    m1.hour() === m2.hour() &&
+    m1.minute() === m2.minute()
+  );
+}
+
 function EventMessageSender(topicName, events) {
   return {
     start: () => {
       interval(60 * 1000)
-        .pipe(map(() => moment().tz('Europe/Berlin')))
-        .subscribe(date => {
-          const day = date.date();
-          const month = date.month() + 1;
-          const year = date.year();
-          const hour = date.hour();
-          const minute = date.minute();
-          const dateString = `${year}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day}`;
-
-          console.log('[EventMessageSender] interval tick:', dateString);
+        .pipe(map(() => moment().tz(TIMEZONE)))
+        .subscribe(now => {
+          console.log('[EventMessageSender] interval tick:', now.toLocaleString());
 
           for (const event of events) {
-            const eventDate = event.date;
-            const eventStart = event.time.split('-')[0].split(':');
-            const eventStartHour = eventStart[0];
-            const eventStartMinute = eventStart[1];
+            const eventDate = moment(event.date).tz(TIMEZONE);
+            const reminderDate = eventDate.clone().subtract(REMIND_MINUTES_BEFORE, 'minutes');
 
-            const isToday = eventDate === dateString;
-            const isNowTheTime = Number(eventStartHour) === hour && Number(eventStartMinute) === minute;
+            console.log(
+              'areSame',
+              event,
+              now.toLocaleString(),
+              reminderDate.toLocaleString(),
+              areSame(now, reminderDate)
+            );
 
-            if (isToday && isNowTheTime) {
+            if (areSame(now, reminderDate)) {
+              const messageData = {
+                band: event.band,
+                stage: event.stage,
+                time: event.time.split('-')[0]
+              };
+
               admin
                 .messaging()
                 .send({
-                  data: {
-                    band: event.band,
-                    stage: event.stage,
-                    time: event.time.split('-')[0]
-                  },
+                  data: messageData,
                   topic: topicName
                 })
                 .then(response => {
                   // Response is a message ID string.
-                  console.log(`Successfully sent message to topic "${topicName}":`, response);
+                  console.log(
+                    `Successfully sent message to topic "${topicName} with data "${JSON.stringify(
+                      messageData
+                    )}":`,
+                    response
+                  );
                 })
                 .catch(error => {
-                  console.error('Error sending message:', error);
+                  console.error(
+                    `Error sent message to topic "${topicName} with data "${JSON.stringify(
+                      messageData
+                    )}":`,
+                    error
+                  );
                 });
             }
           }

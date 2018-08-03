@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const path = require('path');
 const cors = require('cors');
+const dotenv = require('dotenv');
 
 const serviceAccount = require('./admin-firebase-sdk.json');
 const lineup2018 = require('./lineup/test-lineup.json');
@@ -28,7 +29,7 @@ console.log('NODE_ENV', env);
 
 if (isDevelopment) {
   // Use local .env for development mode
-  require('dotenv').config();
+  dotenv.config();
 }
 
 // Insert private key via environment variable
@@ -81,7 +82,7 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

@@ -2,21 +2,9 @@
   "events": [
     {
       "stage": "main",
-      "date": "2018-08-03",
-      "time": "15:40-15:45",
+      "date": "2018-08-03T23:10:00+0200",
+      "time": "23:10-15:45",
       "band": "BLACK VOODOO TRAIN"
-    },
-    {
-      "stage": "main",
-      "date": "2018-08-03",
-      "time": "15:55-17:30",
-      "band": "RUBY THE HATCHET"
-    },
-    {
-      "stage": "tent",
-      "date": "2018-08-03",
-      "time": "16:15-19:15",
-      "band": "UNSANE"
     }
   ]
 }
