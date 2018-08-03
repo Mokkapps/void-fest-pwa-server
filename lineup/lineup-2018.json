@@ -1,0 +1,136 @@
+{
+  "events": [
+    {
+      "stage": "main",
+      "date": "2018-08-10",
+      "time": "15:00-15:45",
+      "band": "BLACK VOODOO TRAIN"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-10",
+      "time": "16:30-17:30",
+      "band": "RUBY THE HATCHET"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-10",
+      "time": "18:15-19:15",
+      "band": "UNSANE"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-10",
+      "time": "20:00-21:00",
+      "band": "PALLBEARER"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-10",
+      "time": "22:00-23:00",
+      "band": "THE WYTCHES"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-10",
+      "time": "00:00-01:00",
+      "band": "HÄLLAS"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-10",
+      "time": "15:45-16:30",
+      "band": "YEAHRS"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-10",
+      "time": "17:30-18:15",
+      "band": "FRIENDS OF GAS"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-10",
+      "time": "19:15-20:00",
+      "band": "FCKR"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-10",
+      "time": "21:00-22:00",
+      "band": "HIEROPHANT"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-10",
+      "time": "23:00-23:45",
+      "band": "FULL OF HELL"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-11",
+      "time": "15:00-15:45",
+      "band": "BLACK SALVATION"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-11",
+      "time": "16:30-17:30",
+      "band": "HÄXXAN"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-11",
+      "time": "18:15-19:15",
+      "band": "MAGGOT HEART"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-11",
+      "time": "20:15-21:15",
+      "band": "SOMALI YACHT CLUB"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-11",
+      "time": "22:15-23:20",
+      "band": "HIGH ON FIRE"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-11",
+      "time": "00:30-01:30",
+      "band": "SLOMATICS"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-11",
+      "time": "15:45-16:30",
+      "band": "CARRION MOTHER"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-11",
+      "time": "17:30-18:15",
+      "band": "VALBORG"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-11",
+      "time": "19:15-20:00",
+      "band": "OCCULTA"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-11",
+      "time": "21:00-22:15",
+      "band": "BLOOD INCANTATION"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-11",
+      "time": "23:00-00:15",
+      "band": "DIRTY FENCES"
+    }
+  ]
+}

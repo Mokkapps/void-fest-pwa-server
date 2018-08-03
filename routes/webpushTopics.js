@@ -69,39 +69,4 @@ router.post('/:name/unsubscribe', (req, res) => {
     });
 });
 
-// Send a message to devices subscribed to the provided topic.
-router.post('/:name/send', (req, res) => {
-  const topicName = req.params.name;
-  const messageData = req.body.data;
-  const message = {
-    data: messageData,
-    topic: topicName
-  };
-  console.log('message to send', message);
-
-  admin
-    .messaging()
-    .send(message)
-    .then(response => {
-      // Response is a message ID string.
-      console.log(
-        `Successfully sent message to topic "${topicName}":`,
-        response
-      );
-      res
-        .status(200)
-        .send(`Successfully sent message: ${JSON.stringify(response)}`);
-    })
-    .catch(error => {
-      console.error('Error sending message:', error);
-      res
-        .status(400)
-        .send(
-          `Error sending message to topic "${topicName}": ${JSON.stringify(
-            error
-          )}`
-        );
-    });
-});
-
 module.exports = router;

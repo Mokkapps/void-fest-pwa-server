@@ -10,8 +10,10 @@ const path = require('path');
 const cors = require('cors');
 
 const serviceAccount = require('./admin-firebase-sdk.json');
+const lineup2018 = require('./lineup/test-lineup.json');
 const webpushTopicsRouter = require('./routes/webpushTopics');
 const indexRouter = require('./routes/index');
+const EventMessageSender = require('./eventMessageSender');
 
 const app = express();
 
@@ -98,6 +100,9 @@ setInterval(() => {
 setInterval(() => {
   http.get(MONITORING_URL);
 }, 1800 * 1000); // every 30 minutes
+
+// The event message sender for Void Fest 2018
+new EventMessageSender('voidfest2018', lineup2018.events).start();
 
 app.listen(port, () => {
   console.log(`🚀 Server started on port ${port} ...`);
