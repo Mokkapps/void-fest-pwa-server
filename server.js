@@ -11,7 +11,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 
 const serviceAccount = require('./admin-firebase-sdk.json');
-const lineup2018 = require('./lineup/test-lineup.json');
+const lineup2018 = require('./lineup/lineup-2018.json');
 const webpushTopicsRouter = require('./routes/webpushTopics');
 const indexRouter = require('./routes/index');
 const EventMessageSender = require('./eventMessageSender');
@@ -57,7 +57,7 @@ if (isDevelopment) {
 } else {
   app.use(
     cors({
-      origin: 'https://void-fest-pwa.herokuapp.com'
+      origin: 'https://void-fest-app.netlify.com'
     })
   );
 }

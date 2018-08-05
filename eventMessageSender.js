@@ -3,7 +3,7 @@ const moment = require('moment-timezone');
 const { interval } = require('rxjs');
 const { map } = require('rxjs/operators');
 
-const REMIND_MINUTES_BEFORE = 15;
+const REMIND_MINUTES_BEFORE = 30;
 const TIMEZONE = 'Europe/Berlin';
 
 function areSame(m1, m2) {
@@ -42,17 +42,18 @@ function EventMessageSender(topicName, events) {
                 stage: event.stage,
                 time: event.time.split('-')[0]
               };
+              const topic = `${topicName}-${event.id}`;
 
               admin
                 .messaging()
                 .send({
                   data: messageData,
-                  topic: topicName
+                  topic
                 })
                 .then(response => {
                   // Response is a message ID string.
                   console.log(
-                    `Successfully sent message to topic "${topicName} with data "${JSON.stringify(
+                    `Successfully sent message to topic "${topic} with data "${JSON.stringify(
                       messageData
                     )}":`,
                     response
@@ -60,7 +61,7 @@ function EventMessageSender(topicName, events) {
                 })
                 .catch(error => {
                   console.error(
-                    `Error sent message to topic "${topicName} with data "${JSON.stringify(
+                    `Error sent message to topic "${topic} with data "${JSON.stringify(
                       messageData
                     )}":`,
                     error
