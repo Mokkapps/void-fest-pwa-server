@@ -8,10 +8,13 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const path = require('path');
 const cors = require('cors');
+const dotenv = require('dotenv');
 
 const serviceAccount = require('./admin-firebase-sdk.json');
+const lineup2018 = require('./lineup/lineup-2018.json');
 const webpushTopicsRouter = require('./routes/webpushTopics');
 const indexRouter = require('./routes/index');
+const EventMessageSender = require('./eventMessageSender');
 
 const app = express();
 
@@ -26,7 +29,7 @@ console.log('NODE_ENV', env);
 
 if (isDevelopment) {
   // Use local .env for development mode
-  require('dotenv').config();
+  dotenv.config();
 }
 
 // Insert private key via environment variable
@@ -79,7 +82,7 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -98,6 +101,9 @@ setInterval(() => {
 setInterval(() => {
   http.get(MONITORING_URL);
 }, 1800 * 1000); // every 30 minutes
+
+// The event message sender for Void Fest 2018
+new EventMessageSender('voidfest2018', lineup2018.events).start();
 
 app.listen(port, () => {
   console.log(`🚀 Server started on port ${port} ...`);

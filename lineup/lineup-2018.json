@@ -1,0 +1,158 @@
+{
+  "events": [
+    {
+      "stage": "main",
+      "date": "2018-08-10T15:00:00+0200",
+      "time": "15:00-15:45",
+      "band": "BLACK VOODOO TRAIN",
+      "id": "fr_m_s_0"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-10T16:30:00+0200",
+      "time": "16:30-17:30",
+      "band": "RUBY THE HATCHET",
+      "id": "fr_m_s_1"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-10T18:15:00+0200",
+      "time": "18:15-19:15",
+      "band": "UNSANE",
+      "id": "fr_m_s_2"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-10T20:00:00+0200",
+      "time": "20:00-21:00",
+      "band": "PALLBEARER",
+      "id": "fr_m_s_3"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-10T22:00:00+0200",
+      "time": "22:00-23:00",
+      "band": "THE WYTCHES",
+      "id": "fr_m_s_4"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-10T00:00:00+0200",
+      "time": "00:00-01:00",
+      "band": "HÄLLAS",
+      "id": "fr_m_s_5"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-10T15:45:00+0200",
+      "time": "15:45-16:30",
+      "band": "YEAHRS",
+      "id": "fr_t_s_0"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-10T17:30:00+0200",
+      "time": "17:30-18:15",
+      "band": "FRIENDS OF GAS",
+      "id": "fr_t_s_1"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-10T19:15:00+0200",
+      "time": "19:15-20:00",
+      "band": "FCKR",
+      "id": "fr_t_s_2"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-10T21:00:00+0200",
+      "time": "21:00-22:00",
+      "band": "HIEROPHANT",
+      "id": "fr_t_s_3"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-10T23:00:00+0200",
+      "time": "23:00-23:45",
+      "band": "FULL OF HELL",
+      "id": "fr_t_s_4"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-11T15:00:00+0200",
+      "time": "15:00-15:45",
+      "band": "BLACK SALVATION",
+      "id": "sa_m_s_0"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-11T16:30:00+0200",
+      "time": "16:30-17:30",
+      "band": "HÄXXAN",
+      "id": "sa_m_s_1"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-11T18:15:00+0200",
+      "time": "18:15-19:15",
+      "band": "MAGGOT HEART",
+      "id": "sa_m_s_2"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-11T20:15:00+0200",
+      "time": "20:15-21:15",
+      "band": "SOMALI YACHT CLUB",
+      "id": "sa_m_s_3"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-11T22:15:00+0200",
+      "time": "22:15-23:20",
+      "band": "HIGH ON FIRE",
+      "id": "sa_m_s_4"
+    },
+    {
+      "stage": "main",
+      "date": "2018-08-11T00:30:00+0200",
+      "time": "00:30-01:30",
+      "band": "SLOMATICS",
+      "id": "sa_m_s_5"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-11T15:45:00+0200",
+      "time": "15:45-16:30",
+      "band": "CARRION MOTHER",
+      "id": "sa_t_s_0"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-11T17:30:00+0200",
+      "time": "17:30-18:15",
+      "band": "VALBORG",
+      "id": "sa_t_s_1"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-11T19:15:00+0200",
+      "time": "19:15-20:00",
+      "band": "OCCULTA",
+      "id": "sa_t_s_2"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-11T21:00:00+0200",
+      "time": "21:00-22:15",
+      "band": "BLOOD INCANTATION",
+      "id": "sa_t_s_3"
+    },
+    {
+      "stage": "tent",
+      "date": "2018-08-11T23:00:00+0200",
+      "time": "23:00-00:15",
+      "band": "DIRTY FENCES",
+      "id": "sa_t_s_4"
+    }
+  ]
+}
